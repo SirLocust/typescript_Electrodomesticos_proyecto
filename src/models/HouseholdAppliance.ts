@@ -2,9 +2,9 @@ import { Origin } from '../types/origin';
 import { Spending } from '../types/speding';
 import { TypeHouseHoldAppliace } from '../types/typeHouseHoldAppliance';
 export class HouseholdAppliance {
-  typeHouseholdAppliance?: TypeHouseHoldAppliace;
-  spending?: Spending;
-  origin?: Origin;
+  typeHouseholdAppliance: TypeHouseHoldAppliace;
+  spending: Spending;
+  origin: Origin;
   constructor(
     typeHouseHoldAppliace: TypeHouseHoldAppliace,
     speding: Spending,
