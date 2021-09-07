@@ -41,18 +41,54 @@ export class InputData {
     this.parseData = parseData;
     this.cart = cart;
     this.bill = bill;
+    ////////
     this.dashBoard = dashBoard;
+    this.listenerAddDataBase();
+    this.listenerAddCart();
+    this.listenerGenerateBill();
+    this.listenerSelect();
+  }
+
+  private listenerSelect() {
+    this.getData
+      .getSelectTypeHouseholdAElement()
+      .addEventListener('change', (event: Event) => {
+        let type = this.parseData.requireTypeHouseholdAppliance(
+          this.getData.getSelectTypeHousehold()
+        );
+        if (type === TypeHouseHoldAppliace.TV) {
+          this.dashBoard.createOptionsTv();
+        }
+        if (type === TypeHouseHoldAppliace.FRIDGE) {
+          this.dashBoard.createOptionsFridge();
+        }
+        if (type === TypeHouseHoldAppliace.BASIC) {
+          this.dashBoard.removeOptios();
+        }
+      });
+  }
+
+  private listenerAddDataBase() {
     this.buttonAddDataBase.addEventListener('click', () => {
       this.createAndAddDataBase(this.getInputCount());
-      console.log(this.dataBase.Getdb());
+
       this.dashBoard.createTable(this.dataBase.Getdb());
     });
+  }
+
+  private listenerAddCart() {
     this.buttonAddCart.addEventListener('click', () => {
       this.createAndAddCart(this.getInputCount());
       console.log(this.cart.getItems());
     });
+  }
+  private listenerGenerateBill() {
     this.buttonGenerateBill.addEventListener('click', () => {
-      this.bill.generateTotal(this.cart.getItems());
+      // this.bill.generateTotal(this.cart.getItems());
+
+      this.bill.removeProduct(this.cart.getItems(), this.dataBase);
+      this.cart.setList([]);
+      this.dashBoard.createTable(this.dataBase.Getdb());
     });
   }
 
@@ -74,6 +110,7 @@ export class InputData {
 
     return Number.parseInt(inputUser.value);
   }
+
   private createHouseHoldAppliance(): HouseholdAppliance {
     const origin = this.parseData.requireOrigin(this.getData.getSelectOrigin());
     const typeHouseHoldAppliace = this.parseData.requireTypeHouseholdAppliance(
@@ -88,7 +125,6 @@ export class InputData {
     if (typeHouseHoldAppliace === TypeHouseHoldAppliace.FRIDGE) {
       return this.createNewFridge(typeHouseHoldAppliace, spending, origin);
     }
-
     return this.createNewBasicHouseholdAppliance(
       typeHouseHoldAppliace,
       spending,
@@ -109,13 +145,17 @@ export class InputData {
     spending: Spending,
     origin: Origin
   ): TV {
-    return new TV(typeHouseHoldAppliace, spending, origin, 40, false);
+    let size = this.getData.getSelectSizeTv() || 40;
+    let isTdt = this.getData.getSelectIsTdt() || false;
+
+    return new TV(typeHouseHoldAppliace, spending, origin, size, isTdt);
   }
   private createNewFridge(
     typeHouseHoldAppliace: TypeHouseHoldAppliace,
     spending: Spending,
     origin: Origin
   ): Fridge {
-    return new Fridge(typeHouseHoldAppliace, spending, origin, 120);
+    let capacity = this.getData.getSelectCapacityFridge() || 120;
+    return new Fridge(typeHouseHoldAppliace, spending, origin, capacity);
   }
 }

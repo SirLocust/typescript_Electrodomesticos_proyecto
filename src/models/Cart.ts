@@ -11,4 +11,7 @@ export class Cart {
   public getItems(): HouseholdAppliance[] {
     return this.list;
   }
+  public setList(householdAppliance: HouseholdAppliance[]) {
+    this.list = householdAppliance;
+  }
 }

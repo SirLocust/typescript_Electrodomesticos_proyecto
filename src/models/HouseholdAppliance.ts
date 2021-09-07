@@ -42,4 +42,22 @@ export class HouseholdAppliance {
   public calculatePrice(): number {
     return this.priceByOrigin() + this.priceBySpending();
   }
+  public isSame(
+    householdAppliance: HouseholdAppliance,
+    householdAppliance2: HouseholdAppliance
+  ): boolean {
+    if (householdAppliance2.origin !== householdAppliance.origin) {
+      return false;
+    }
+    if (householdAppliance2.spending !== householdAppliance.spending) {
+      return false;
+    }
+    if (
+      householdAppliance2.typeHouseholdAppliance !==
+      householdAppliance.typeHouseholdAppliance
+    ) {
+      return false;
+    }
+    return true;
+  }
 }

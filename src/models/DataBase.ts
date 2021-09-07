@@ -1,4 +1,5 @@
 import { HouseholdAppliance } from './HouseholdAppliance';
+import { TypeHouseHoldAppliace } from '../types/typeHouseHoldAppliance';
 
 export class DataBase {
   private db: HouseholdAppliance[];
@@ -13,5 +14,13 @@ export class DataBase {
   }
   public setItem(householdAppliance: HouseholdAppliance) {
     this.Getdb().push(householdAppliance);
+  }
+
+  public searchCountProduct(type: TypeHouseHoldAppliace): number {
+    let cantidad = this.db.filter((electrodomestido: HouseholdAppliance) => {
+      electrodomestido.typeHouseholdAppliance === type;
+    });
+
+    return cantidad.length;
   }
 }

@@ -6,6 +6,23 @@ export class GetData {
     return select.value;
   }
 
+  public getSelectSizeTv(): number {
+    const select = document.getElementById('sizeTv') as HTMLSelectElement;
+    return Number.parseInt(select.value);
+  }
+  public getSelectCapacityFridge(): number {
+    const select = document.getElementById(
+      'capacityFridge'
+    ) as HTMLSelectElement;
+    return Number.parseInt(select.value);
+  }
+  public getSelectIsTdt(): boolean {
+    const select = document.getElementById('isTdtSelect') as HTMLSelectElement;
+    if (select?.value === '1') {
+      return true;
+    }
+    return false;
+  }
   public getSelectSpeding(): string {
     const select = document.getElementById('speding') as HTMLSelectElement;
     return select.value;
@@ -23,5 +40,8 @@ export class GetData {
     let value = Number.parseInt(inputUser.value);
 
     return value;
+  }
+  public getSelectTypeHouseholdAElement(): HTMLSelectElement {
+    return document.getElementById('typeHouseholdA') as HTMLSelectElement;
   }
 }
